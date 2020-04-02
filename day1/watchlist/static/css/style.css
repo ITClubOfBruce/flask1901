@@ -31,5 +31,37 @@ footer{
     border-bottom: 1px solid #ddd;
 }
 .movie-list li:hover{
-    background-color: #105aa3;
+    background-color: #f9f8fa;
+}
+nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+}
+nav li{
+    float: left;
+}
+nav li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 12px;
+    text-decoration: none;
+}
+nav li a:hover{
+    background-color: #111;
+}
+.float-right{
+    float: right;
+}
+.baidu{
+    font-size:12px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    background: #F5c518;
+    border-radius: 5px;
+    padding: 3px 5px;
 }

@@ -26,18 +26,21 @@ class Movie(db.Model):
     title = db.Column(db.String(60))
     year = db.Column(db.String(4))
 
+# 模板上下文处理函数
+@app.context_processor
+def common_user():
+    user = User.query.first()
+    return dict(user=user)
+
 # views
 @app.route('/')
 def index():
-    
-    user = User.query.first()
     movies = Movie.query.all()
-    return render_template('index.html',user=user,movies=movies)
-
-
+    return render_template('index.html',movies=movies)
 
 
 # 自定义命令
+
 # 新建data.db的数据库初始化命令
 @app.cli.command()  # 装饰器，注册命令
 @click.option('--drop',is_flag=True,help="删除后再创建")
@@ -74,3 +77,9 @@ def forge():
     db.session.commit()
     click.echo("插入数据完成")
     
+
+# 错误处理函数
+@app.errorhandler(404)
+def page_not_found(e):
+    # 返回模板和状态码
+    return render_template('404.html')
