@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name }}'s WatchList</title>
+    <title>{{ user.name }}'s WatchList</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
 </head>
 <body>
     <h2>
         <img class="avatar" src="{{ url_for('static',filename='images/avatar.jpg') }}" alt="头像">
-        {{ name }}'s WatchList
+        {{ user.name }}'s WatchList
     </h2>
     {# 过滤器 变量|过滤器名 #}
     <p>总共{{ movies|length }}个</p>
