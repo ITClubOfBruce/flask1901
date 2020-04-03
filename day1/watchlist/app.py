@@ -55,6 +55,7 @@ def index():
     movies = Movie.query.all()
     return render_template('index.html',movies=movies)
 
+# 更新电影信息
 @app.route('/movie/edit/<int:movie_id>',methods=['GET','POST'])
 def edit(movie_id):
     movie = Movie.query.get_or_404(movie_id)
@@ -72,6 +73,17 @@ def edit(movie_id):
         return redirect(url_for('index'))
 
     return render_template('edit.html',movie=movie)
+
+
+# 删除电影信息
+@app.route('/movie/delete/<int:movie_id>',methods=['POST'])
+def delete(movie_id):
+    movie = Movie.query.get_or_404(movie_id)
+    db.session.delete(movie)
+    db.session.commit()
+    flash('删除成功')
+    return redirect(url_for('index'))
+
 
 # 自定义命令
 
