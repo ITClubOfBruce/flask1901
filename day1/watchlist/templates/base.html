@@ -22,12 +22,25 @@
             <li>
                 <a href="{{ url_for('index') }}">首页</a>
             </li>
+            {% if not current_user.is_authenticated %}
             <li>
                 <a href="{{ url_for('login') }}">登录</a>
+            
             </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for('login') }}">{{ current_user.name }}</a>
+            
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
             <li>
                 <a href="{{ url_for('logout') }}">退出</a>
             </li>
+            <li>
+                <a href="{{ url_for('settings') }}">设置</a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
     {% block content %}{% endblock %}
