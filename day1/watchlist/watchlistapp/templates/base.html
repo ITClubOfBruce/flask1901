@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}'s WatchList</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <h2>
+        <img class="avatar" src="{{ url_for('static',filename='images/avatar.jpg') }}" alt="头像">
+        {{ user.name }}'s WatchList
+    </h2>
+    <!-- 提示信息 -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+    <nav>
+        <ul>
+            <li>
+                <a href="{{ url_for('index') }}">首页</a>
+            </li>
+            {% if not current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('login') }}">登录</a>
+            
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for('login') }}">{{ current_user.name }}</a>
+            
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('logout') }}">退出</a>
+            </li>
+            <li>
+                <a href="{{ url_for('settings') }}">设置</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% block content %}{% endblock %}
+    <footer>
+        <small>&copy;2020<a href="#">1901电影列表</a></small>
+    </footer>
+</body>
+</html>
