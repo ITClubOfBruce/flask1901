@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h2>
+            <span>倒计时</span>
+            <button v-on:click="start">
+                <i class="glyphicon glyphicon-play"></i>
+            </button>
+        </h2>
+        <div class="well">
+            <div class="dao-timer">
+                <span>{{ minute }}</span>分钟:<span>{{ second }}</span>秒
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const WORK_STATES = {
+        WORK:'工作',
+        REST:'休息'
+    }
+    const WORKING_TIME_LENGTH_IN_MUNUTES = 25
+    const RESTING_TIME_LENGTH_IN_MUNUTES = 5
+
+    new Vue({
+        el:"#app",
+        data:{
+            minute:WORKING_TIME_LENGTH_IN_MUNUTES,
+            second:0,
+            workState:WORK_STATES,
+            timestamp:0
+        },
+        methods:{
+            start:function(){
+                this._tick();
+                this.interval = setInterval(this._tick,1000)
+            },
+            _tick:function(){
+                // second不是0
+                if(this.second !== 0){
+                    this.second--;
+                    return;
+                }
+                // second是0，minute不是0
+                if(this.minute !== 0){
+                    this.minute--;
+                    this.second = 59;
+                    return;
+                }
+                // minute和second都是0
+                this.workState = this.workState === WORK_STATES.WORK ? WORK_STATES.REST:WORK_STATES.WORK
+                
+                if(this.workState === WORK_STATES.WORK){
+                    this.minute = WORKING_TIME_LENGTH_IN_MUNUTES
+                }else{
+                    this.minute = RESTING_TIME_LENGTH_IN_MUNUTES
+                }
+            }
+        }
+    })
+</script>
+
+</html>
