@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Base from './Base.vue'
 import IndexPage from './components/index.vue'
+import mock from './mock/mock'
 
 Vue.use(VueRouter)
 let router = new VueRouter({

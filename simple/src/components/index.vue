@@ -11,58 +11,72 @@
               <span v-if="item.hot" class="hot-tag">HOT</span>
             </li>
           </ul>
-          <hr v-if="!product.last" /> 
+          <hr v-if="!product.last" />
         </template>
       </div>
       <div class="index-left-block lastest-news">
         <h2>最新消息</h2>
         <ul>
-          <li>kdkdkdk</li>
+          <li v-for="news in newsList">
+            <a v-bind:href="news.url">{{ news.title }}</a>
+          </li>
         </ul>
       </div>
     </div>
     <div class="index-right">
-      <div style="font-size:40px;text-align:center;line-height:300px;width:900px;height:300px;background:red;margin:0 auto;">
-          slider
-      </div>
+      <div style="width:900px;height:300px;background:red;"></div>
       <div class="index-board-list">
-          <div class="index-board-item">
-              <div class="index-board-item-inner">
-                  <h2>戴尔电脑</h2>
-                  <p>戴尔电脑就是好哇</p>
-                  <div class="index-board-button">立即购买</div>
-              </div>
+        <div class="index-board-item">
+          <div class="index-board-item-inner">
+            <h2>戴尔电脑</h2>
+            <p>戴尔电脑就是好哇</p>
+            <div class="index-board-button">立即购买</div>
           </div>
-          <div class="index-board-item">
-              <div class="index-board-item-inner">
-                  <h2>戴尔电脑</h2>
-                  <p>戴尔电脑就是好哇</p>
-                  <div class="index-board-button">立即购买</div>
-              </div>
+        </div>
+        <div class="index-board-item">
+          <div class="index-board-item-inner">
+            <h2>戴尔电脑</h2>
+            <p>戴尔电脑就是好哇</p>
+            <div class="index-board-button">立即购买</div>
           </div>
-          <div class="index-board-item">
-              <div class="index-board-item-inner">
-                  <h2>戴尔电脑</h2>
-                  <p>戴尔电脑就是好哇</p>
-                  <div class="index-board-button">立即购买</div>
-              </div>
+        </div>
+        <div class="index-board-item">
+          <div class="index-board-item-inner">
+            <h2>戴尔电脑</h2>
+            <p>戴尔电脑就是好哇</p>
+            <div class="index-board-button">立即购买</div>
           </div>
-          <div class="index-board-item">
-              <div class="index-board-item-inner">
-                  <h2>戴尔电脑</h2>
-                  <p>戴尔电脑就是好哇</p>
-                  <div class="index-board-button">立即购买</div>
-              </div>
+        </div>
+        <div class="index-board-item">
+          <div class="index-board-item-inner">
+            <h2>戴尔电脑</h2>
+            <p>戴尔电脑就是好哇</p>
+            <div class="index-board-button">立即购买</div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  mounted() {
+    axios.get("api/getNewsList")
+      .then((response) => {
+        // handle success
+        console.log(response);
+        this.newsList = response.data.list
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      });
+  },
   data() {
     return {
+      newsList: [],
       productList: {
         pc: {
           title: "PC产品",
@@ -88,7 +102,7 @@ export default {
         },
         app: {
           title: "手机应用类",
-          last:true,
+          last: true,
           list: [
             {
               title: "91助手",
@@ -97,7 +111,7 @@ export default {
             {
               title: "产品助手",
               url: "http://weixin.com",
-              hot:true
+              hot: true
             },
             {
               title: "智能地图",
@@ -106,7 +120,7 @@ export default {
             {
               title: "语音助手",
               url: "http://phone.com",
-              hot:true
+              hot: true
             }
           ]
         }
@@ -127,6 +141,7 @@ export default {
 }
 .index-right {
   width: 900px;
+  margin-top: 15px;
 }
 .index-left-block {
   margin: 15px;
@@ -151,47 +166,48 @@ export default {
 .index-left-block li {
   padding: 5px;
 }
-.hot-tag{
-    color: white;
-    background:purple;
-    font-size: 13px;
+.hot-tag {
+  color: white;
+  background: purple;
+  font-size: 13px;
 }
-.index-board-list{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.index-board-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 15px;
 }
-.index-board-item{
-    width: 400px;
-    background:#fff;
-    box-shadow: 0 0 1px #ddd;
-    margin-bottom: 20px;
-    padding-top: 20px;
+.index-board-item {
+  width: 400px;
+  background: #fff;
+  box-shadow: 0 0 1px #ddd;
+  margin-bottom: 20px;
+  padding-top: 20px;
 }
-.index-board-item-inner{
-    height: 125px;
-    padding-left: 120px;
-    background-image: url(../assets/logo.png);
-    background-repeat:no-repeat;
-    background-size: 20%;
-    background-position: 20px;
+.index-board-item-inner {
+  height: 125px;
+  padding-left: 180px;
+  background-image: url(../assets/logo.png);
+  background-repeat: no-repeat;
+  background-size: 30%;
+  background-position: 20px;
 }
-.index-board-item-inner h2{
-    font-size: 18px;
-    font-weight: bolder;
-    color: #000000;
-    margin-bottom: 15px;
+.index-board-item-inner h2 {
+  font-size: 18px;
+  font-weight: bolder;
+  color: #000000;
+  margin-bottom: 15px;
 }
-.index-board-item-inner p{
-    margin-bottom: 15px;
+.index-board-item-inner p {
+  margin-bottom: 15px;
 }
-.index-board-button{
-    width: 80px;
-    height: 30px;
-    line-height: 30px;
-    color: #fff;
-    background:limegreen;
-    border-radius: 5px;
-    text-align: center;
+.index-board-button {
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  background: limegreen;
+  border-radius: 5px;
+  text-align: center;
 }
 </style>
