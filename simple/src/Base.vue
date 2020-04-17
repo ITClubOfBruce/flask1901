@@ -2,7 +2,7 @@
   <div>
     <div class="app-head">
       <div class="app-head-inner">
-        <img src="./assets/logo.png" alt=""><span class="app-title">海马生鲜商城</span>
+        <img src="./assets/logo.png" alt=""><span class="app-title">海马3C商城</span>
         <div class="head-nav">
           <ul>
             <li>登录</li>

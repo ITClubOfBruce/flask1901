@@ -1,18 +1,17 @@
 <template>
-    <div class="slider-wrapper" @mouseover="clearInv" @mouseout="runInv">
-        <div v-show="index === nowIndex" v-for="(imgUrl,index) in sliderImgList" :key="index" class="slider-item" v-bind:class="['item'+index]">
+    <div class="slider-wrapper" v-on:mouseover="clearInv" @mouseout="runInv">
+        <!-- 轮播图区 -->
+        <div v-show="index === nowIndex" v-for="(imgUrl,index) in sliderImgList" :key="index" class="slider-item" v-bind:class="['item'+[index+1]]">
             <a href="">
                 <img v-bind:src=imgUrl alt="">
             </a>
         </div>
+        <!-- 上一张下一张 -->
+        <a v-on:click="preHandler" class="btn pre-btn" href="javascript:void(0)">&lt;</a>
+        <a v-on:click="nextHandler" class="btn next-btn" href="javascript:void(0)">&gt;</a>
         <!-- dots -->
         <ul class="slider-dots">
-            <li>&lt;</li>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>&gt;</li>
+            <li v-on:click="clickDots(index)" v-for="(item,index) in sliderImgList" :key="index">{{ index+1 }}</li>
         </ul>
     </div>
 </template>
@@ -22,18 +21,37 @@ export default {
     data() {
         return {
             nowIndex:0,
-            sliderImgList:[require('../assets/pic1.jpg'),require('../assets/pic2.jpg'),require('../assets/pic3.jpg'),require('../assets/pic4.jpg')]
+            sliderImgList:[
+                require('../assets/pic1.jpg'),
+                require('../assets/pic2.jpg'),
+                require('../assets/pic3.jpg'),
+                require('../assets/pic4.jpg')
+            ]
         }
     },
     methods: {
+        clickDots(index){
+            this.nowIndex = index
+            console.log(this.nowIndex)
+        },
+        preHandler(){
+            this.nowIndex--;
+            if(this.nowIndex < 0){
+                this.nowIndex = 3
+            }
+            console.log(this.nowIndex)
+        },
+        nextHandler(){
+            this.autoPlay()
+        },
         autoPlay(){
             this.nowIndex++;
-            if(this.nowIndex === 4){
+            if(this.nowIndex > 3){
                 this.nowIndex = 0
             }
         },
         runInv(){
-            this.invId = setInterval(this.autoPlay,1000)
+            this.invId = setInterval(this.autoPlay,2000)
         },
         clearInv(){
             clearInterval(this.invId)
@@ -86,5 +104,25 @@ export default {
         color: #ffffff;
         opacity: 0.6;
         margin: 0 10px;
+    }
+    .btn{
+        width: 40px;
+        height: 50px;
+        background: #000;
+        color: #ffffff;
+        position: absolute;
+        z-index: 300;
+        top: 50%;
+        margin-top: -25px;
+        font-size: 40px;
+        text-align: center;
+        line-height: 50px;
+        opacity: 0.6;
+    }
+    .pre-btn{
+        left: 10px;
+    }
+    .next-btn{
+        right: 10px;
     }
 </style>
