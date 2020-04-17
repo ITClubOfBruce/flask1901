@@ -1,11 +1,13 @@
 <template>
     <div class="slider-wrapper" v-on:mouseover="clearInv" @mouseout="runInv">
         <!-- 轮播图区 -->
-        <div v-show="index === nowIndex" v-for="(imgUrl,index) in sliderImgList" :key="index" class="slider-item" v-bind:class="['item'+[index+1]]">
+        <div v-show="index === nowIndex" v-for="(item,index) in sliderImgList" :key="index" class="slider-item" v-bind:class="['item'+[index+1]]">
             <a href="">
-                <img v-bind:src=imgUrl alt="">
+                <img v-bind:src=item.imgUrl alt="">
             </a>
         </div>
+        <!-- 图片标题 -->
+        <h2 class="slider-title"> {{ sliderImgList[nowIndex].title }} </h2>
         <!-- 上一张下一张 -->
         <a v-on:click="preHandler" class="btn pre-btn" href="javascript:void(0)">&lt;</a>
         <a v-on:click="nextHandler" class="btn next-btn" href="javascript:void(0)">&gt;</a>
@@ -22,17 +24,28 @@ export default {
         return {
             nowIndex:0,
             sliderImgList:[
-                require('../assets/pic1.jpg'),
-                require('../assets/pic2.jpg'),
-                require('../assets/pic3.jpg'),
-                require('../assets/pic4.jpg')
+                {
+                    imgUrl:require('../assets/pic1.jpg'),
+                    title:'第一张'
+                },
+                {
+                    imgUrl:require('../assets/pic2.jpg'),
+                    title:'第二张'
+                },
+                {
+                    imgUrl:require('../assets/pic3.jpg'),
+                    title:'第三张'
+                },
+                {
+                    imgUrl:require('../assets/pic4.jpg'),
+                    title:'第四张'
+                },
             ]
         }
     },
     methods: {
         clickDots(index){
             this.nowIndex = index
-            console.log(this.nowIndex)
         },
         preHandler(){
             this.nowIndex--;
@@ -124,5 +137,15 @@ export default {
     }
     .next-btn{
         right: 10px;
+    }
+    .slider-title{
+        position: absolute;
+        z-index: 400;
+        bottom: 10px;
+        left: 10px;
+        font-size: 18px;
+        color: #ffffff;
+        background: #000;
+        opacity: 0.6;
     }
 </style>
